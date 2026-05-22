@@ -105,4 +105,10 @@ def delete_task():
     else:
         print("Nomor tugas tidak ditemukan.\n")
 
-update_task()
+def delete_file():
+    import os
+    if os.path.exists("to_do_list.txt"):
+        os.remove("to_do_list.txt")
+        print("File To Do List berhasil dihapus.\n")
+    else:
+        print("File To Do List tidak ditemukan.\n")
