@@ -13,3 +13,16 @@ def show_task():
         print()
     else:
         print("Belum ada tugas yang ditambahkan.\n")
+
+def add_task():
+    try:
+        total_tasks = int(input("Masukkan jumlah tugas yang ingin ditambahkan (angka saja): "))
+    except ValueError:
+        print("Input tidak valid. Harap masukkan angka saja.\n")
+        return
+    with open ("to_do_list.txt", "a", encoding="utf-8") as file:
+        for i in range(total_tasks):
+            task = input(f"Masukkan tugas {i + 1}: ")
+            file.write(f"{task} [ ]\n")
+
+add_task()
