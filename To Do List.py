@@ -31,6 +31,7 @@ def update_task():
     show_task()
     print("1. Tandai tugas sebagai selesai")
     print("2. Menghapus tanda pada tugas sebagai belum selesai")
+    print("3. Menghapus tugas")
     while True:
         try:
             update_choice = int(input("Pilih opsi pembaruan (angka saja): "))
@@ -41,7 +42,9 @@ def update_task():
     if update_choice == 1:
         mark_task_as_completed()
     elif update_choice == 2:
-        unmark_task_as_completed()
+        unmark_task_as_unfinished()
+    elif update_choice == 3:
+        delete_task()
     else:
         print("Pilihan tidak valid.\n")
 
@@ -64,7 +67,7 @@ def mark_task_as_completed():
     else:
         print("Nomor tugas tidak ditemukan.\n")
 
-def unmark_task_as_completed():
+def unmark_task_as_unfinished():
     while True:
         try:
             task_number = int(input("Masukkan nomor tugas yang ingin dihapus tandanya sebagai belum selesai (angka saja): "))
@@ -80,6 +83,25 @@ def unmark_task_as_completed():
         with open ("to_do_list.txt", "w", encoding="utf-8") as file:
             file.writelines(tasks)
         print("Tanda tugas berhasil dihapus, sekarang menjadi belum selesai.\n")
+    else:
+        print("Nomor tugas tidak ditemukan.\n")
+
+def delete_task():
+    while True:
+        try:
+            task_number = int(input("Masukkan nomor tugas yang ingin dihapus (angka saja): "))
+            break
+        except ValueError:
+            print("Input tidak valid. Harap masukkan angka saja.\n")
+
+    with open ("to_do_list.txt", "r", encoding="utf-8") as file:
+        tasks = file.readlines()
+
+    if 0 < task_number <= len(tasks):
+        del tasks[task_number - 1]
+        with open ("to_do_list.txt", "w", encoding="utf-8") as file:
+            file.writelines(tasks)
+        print("Tugas berhasil dihapus.\n")
     else:
         print("Nomor tugas tidak ditemukan.\n")
 
