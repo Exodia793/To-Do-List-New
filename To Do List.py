@@ -15,11 +15,13 @@ def show_task():
         print("Belum ada tugas yang ditambahkan.\n")
 
 def add_task():
-    try:
-        total_tasks = int(input("Masukkan jumlah tugas yang ingin ditambahkan (angka saja): "))
-    except ValueError:
-        print("Input tidak valid. Harap masukkan angka saja.\n")
-        return
+    while True:
+        try:
+            total_tasks = int(input("Masukkan jumlah tugas yang ingin ditambahkan (angka saja): "))
+            break
+        except ValueError:
+            print("Input tidak valid. Harap masukkan angka saja.\n")
+
     with open ("to_do_list.txt", "a", encoding="utf-8") as file:
         for i in range(total_tasks):
             task = input(f"Masukkan tugas {i + 1}: ")
@@ -50,7 +52,6 @@ def mark_task_as_completed():
             break
         except ValueError:
             print("Input tidak valid. Harap masukkan angka saja.\n")
-            return
 
     with open ("to_do_list.txt", "r", encoding="utf-8") as file:
         tasks = file.readlines()
