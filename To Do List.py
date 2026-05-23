@@ -1,10 +1,14 @@
+import os
+
+file_name = "to_do_list.txt"
+
 def create_to_do_list():
-    with open ("to_do_list.txt", "w", encoding="utf-8") as file:
-        pass
-    print("Catatan To Do List berhasil dibuat.\n")
+    if not os.path.exists(file_name):
+        with open(file_name, "w", encoding="utf-8") as file:
+            pass
 
 def show_task():
-    with open ("to_do_list.txt", "r", encoding="utf-8") as file:
+    with open (file_name, "r", encoding="utf-8") as file:
         tasks = file.readlines()
     if tasks:
         print("Daftar Tugas:")
@@ -22,7 +26,7 @@ def add_task():
         except ValueError:
             print("Input tidak valid. Harap masukkan angka saja.\n")
 
-    with open ("to_do_list.txt", "a", encoding="utf-8") as file:
+    with open (file_name, "a", encoding="utf-8") as file:
         for i in range(total_tasks):
             task = input(f"Masukkan tugas {i + 1}: ")
             file.write(f"{task} [ ]\n")
@@ -56,12 +60,12 @@ def mark_task_as_completed():
         except ValueError:
             print("Input tidak valid. Harap masukkan angka saja.\n")
 
-    with open ("to_do_list.txt", "r", encoding="utf-8") as file:
+    with open (file_name, "r", encoding="utf-8") as file:
         tasks = file.readlines()
     
     if 0 < task_number <= len(tasks):
         tasks[task_number - 1] = tasks[task_number - 1].replace("[ ]", "[\u2713]")
-        with open ("to_do_list.txt", "w", encoding="utf-8") as file:
+        with open (file_name, "w", encoding="utf-8") as file:
             file.writelines(tasks)
         print("Tugas berhasil ditandai sebagai selesai.\n")
     else:
@@ -75,12 +79,12 @@ def unmark_task_as_unfinished():
         except ValueError:
             print("Input tidak valid. Harap masukkan angka saja.\n")
 
-    with open ("to_do_list.txt", "r", encoding="utf-8") as file:
+    with open (file_name, "r", encoding="utf-8") as file:
         tasks = file.readlines()
     
     if 0 < task_number <= len(tasks):
         tasks[task_number - 1] = tasks[task_number - 1].replace("[\u2713]", "[ ]")
-        with open ("to_do_list.txt", "w", encoding="utf-8") as file:
+        with open (file_name, "w", encoding="utf-8") as file:
             file.writelines(tasks)
         print("Tanda tugas berhasil dihapus, sekarang menjadi belum selesai.\n")
     else:
@@ -94,21 +98,47 @@ def delete_task():
         except ValueError:
             print("Input tidak valid. Harap masukkan angka saja.\n")
 
-    with open ("to_do_list.txt", "r", encoding="utf-8") as file:
+    with open (file_name, "r", encoding="utf-8") as file:
         tasks = file.readlines()
 
     if 0 < task_number <= len(tasks):
         del tasks[task_number - 1]
-        with open ("to_do_list.txt", "w", encoding="utf-8") as file:
+        with open (file_name, "w", encoding="utf-8") as file:
             file.writelines(tasks)
         print("Tugas berhasil dihapus.\n")
     else:
         print("Nomor tugas tidak ditemukan.\n")
 
-def delete_file():
-    import os
-    if os.path.exists("to_do_list.txt"):
-        os.remove("to_do_list.txt")
-        print("File To Do List berhasil dihapus.\n")
+create_to_do_list()
+
+print("===================================================")
+print("  Selamat datang di program To Do List!")
+print("===================================================\n")
+ 
+while True:
+    print("===================================================")
+    print("Menu:")
+    print("1. Tampilkan daftar tugas")
+    print("2. Tambahkan tugas")
+    print("3. Perbarui tugas")
+    print("4. Keluar")
+    print("===================================================\n")
+    while True:
+        try:
+            choice = int(input("Masukkan pilihan Anda (angka saja): "))
+            print()
+            break
+        except ValueError:
+            print("Input tidak valid. Harap masukkan angka saja.\n")
+        
+    if choice == 1:
+        show_task()
+    elif choice == 2:
+        add_task()
+    elif choice == 3:
+        update_task()
+    elif choice == 4:
+        print("Terima kasih telah menggunakan program To Do List. Sampai jumpa!")
+        break
     else:
-        print("File To Do List tidak ditemukan.\n")
+        print("Pilihan tidak valid. Harap masukkan angka saja.\n")
