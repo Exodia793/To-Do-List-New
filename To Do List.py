@@ -7,7 +7,7 @@ def show_task():
     with open ("to_do_list.txt", "r", encoding="utf-8") as file:
         tasks = file.readlines()
     if tasks:
-        print("Daftar Tugas:")
+        print("\nDaftar Tugas:")
         for index, task in enumerate(tasks):
             print(f"{index + 1}. {task.strip()}")
         print()
@@ -29,9 +29,11 @@ def add_task():
 
 def update_task():
     show_task()
+    print("\n===================================================")
     print("1. Tandai tugas sebagai selesai")
     print("2. Menghapus tanda pada tugas sebagai belum selesai")
     print("3. Menghapus tugas")
+    print("===================================================\n")
     while True:
         try:
             update_choice = int(input("Pilih opsi pembaruan (angka saja): "))
@@ -112,3 +114,41 @@ def delete_file():
         print("File To Do List berhasil dihapus.\n")
     else:
         print("File To Do List tidak ditemukan.\n")
+
+print("===================================================")
+print("Selamat datang di program To Do List!")
+print("===================================================\n")
+
+while True:
+    print("\n===================================================")
+    print("Menu:")
+    print("1. Buat catatan To Do List")
+    print("2. Tampilkan daftar tugas")
+    print("3. Tambahkan tugas")
+    print("4. Perbarui tugas")
+    print("5. Hapus file To Do List")
+    print("6. Keluar")
+    print("===================================================\n")
+
+    while True:
+        try:
+            choice = int(input("Pilih opsi (angka saja): "))
+            break
+        except ValueError:
+            print("Input tidak valid. Harap masukkan angka saja.\n")
+
+    if choice == 1:
+        create_to_do_list()
+    elif choice == 2:
+        show_task()
+    elif choice == 3:
+        add_task()
+    elif choice == 4:
+        update_task()
+    elif choice == 5:
+        delete_file()
+    elif choice == 6:
+        print("\nTerima kasih telah menggunakan program To Do List. Sampai jumpa!")
+        break
+    else:
+        print("Pilihan tidak valid.\n")
